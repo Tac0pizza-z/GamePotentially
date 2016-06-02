@@ -12,6 +12,7 @@ public class EntityManager {
 	private Handler handler;
 	private Player player;
 	private ArrayList<Entity> entities;
+	
 	private Comparator<Entity> renderSorter = new Comparator<Entity>(){
 		@Override
 		public int compare(Entity a, Entity b) {
@@ -35,7 +36,7 @@ public class EntityManager {
 			e.tick();
 		}
 		player.tick();
-		entities.sort(renderSorter);
+		//entities.sort(renderSorter);
 	}
 	
 	public void render(Graphics g){
@@ -43,6 +44,7 @@ public class EntityManager {
 			e.render(g);
 		}
 		player.render(g);
+		entities.sort(renderSorter);
 	}
 	
 	public void addEntity(Entity e){

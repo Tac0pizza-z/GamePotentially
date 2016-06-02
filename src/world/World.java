@@ -23,7 +23,6 @@ public class World {
 		this.handler = handler;
 		entityManager = new EntityManager(handler, new Player(handler, 100, 100));
 		entityManager.addEntity(new Spikes(handler, 250, 200));
-		entityManager.addEntity(new Player(handler, 250, 200));
 		
 		loadWorld(path);
 		
