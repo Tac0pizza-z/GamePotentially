@@ -26,5 +26,4 @@ public class Spikes extends StaticEntity{
 	public void render(Graphics g){
 		g.drawImage(Assets.enemy, (int) (x - handler.getGameCamera().getxOffset()), (int) (y - handler.getGameCamera().getyOffset()), width, height, null);
 	}
-
 }
