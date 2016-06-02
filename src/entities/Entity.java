@@ -9,15 +9,14 @@ import runGame.Handler;
 public abstract class Entity {
 	
 	protected Handler handler;
-	protected static float x;
-	protected static float y;
+	protected float x, y;
 	protected int width, height;
 	protected Rectangle bounds;
 	
 	public Entity(Handler handler, float x, float y, int width, int height){
 		this.handler = handler;
-		Entity.x = x;
-		Entity.y = y;
+		this.x = x;
+		this.y = y;
 		this.width = width;
 		this.height = height;
 		
@@ -43,20 +42,20 @@ public abstract class Entity {
 	}
 	
 	//getters, setters
-	public static float getX() {
+	public float getX() {
 		return x;
 	}
 
 	public void setX(float x) {
-		Entity.x = x;
+		this.x = x;
 	}
 
-	public static float getY() {
+	public float getY() {
 		return y;
 	}
 
 	public void setY(float y) {
-		Entity.y = y;
+		this.y = y;
 	}
 
 	public int getWidth() {

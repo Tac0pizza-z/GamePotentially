@@ -19,7 +19,7 @@ public class Spikes extends StaticEntity{
 	
 	@Override
 	public void tick(){
-		this.x++;
+
 	}
 	
 	@Override
