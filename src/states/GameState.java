@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import entities.creatures.Player;
-import entities.statics.Spikes;
+import entities.statics.Spider;
 import input.MouseManager;
 import runGame.Game;
 import runGame.Handler;
@@ -28,6 +28,7 @@ public class GameState extends State{
 
 	@Override
 	public void render(Graphics g) {
+		//temporary mouse stuff
 		world.render(g);
 		if(MouseManager.isRightPressed()){
 			g.setColor(Color.RED);
@@ -38,6 +39,7 @@ public class GameState extends State{
 		}else{
 			g.setColor(Color.WHITE);
 		}
+		g.fillRect(handler.getMouseManager().getMouseX(), handler.getMouseManager().getMouseY(), 10, 10);
 		g.fillRect(handler.getMouseManager().getMouseX(), handler.getMouseManager().getMouseY(), 10, 10);
 	}
 }

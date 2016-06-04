@@ -6,11 +6,12 @@ import gfx.Assets;
 import runGame.Handler;
 import tiles.Tile;
 
-public class Spikes extends StaticEntity{
+public class Spider extends StaticEntity{
 	
-	public Spikes(Handler handler, float x, float y){
+	public Spider(Handler handler, float x, float y){
 		super(handler, x, y, Tile.TILEWIDTH, Tile.TILEHEIGHT);
 		
+		//hitboxes
 		bounds.x = 0;
 		bounds.y = 0;
 		bounds.width = width;
@@ -20,6 +21,11 @@ public class Spikes extends StaticEntity{
 	@Override
 	public void tick(){
 
+	}
+	
+	@Override
+	public void die(){
+		System.out.println("Spider Died");
 	}
 	
 	@Override

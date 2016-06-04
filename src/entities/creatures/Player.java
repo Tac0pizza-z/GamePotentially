@@ -2,11 +2,18 @@ package entities.creatures;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
+
+import entities.Entity;
 import gfx.Assets;
 import runGame.Game;
 import runGame.Handler;
 
 public class Player extends Creature{
+	
+	//temp for viewing hitboxes
+	Rectangle hb = new Rectangle();
+	int hbSize = 20;
 	
 	public Player(Handler handler, float x, float y) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
@@ -22,6 +29,49 @@ public class Player extends Creature{
 		input();
 		move();
 		handler.getGameCamera().centerOnEntity(this);
+		//temp attack stuff
+		checkAttack();
+	}
+	//temp attack stuff
+	private void checkAttack(){
+		Rectangle cb = getCollisionBounds(0, 0);
+		//Rectangle hb = new Rectangle();
+		//int hbSize = 20;
+		hb.width = hbSize;
+		hb.height = hbSize;
+		
+		if(handler.getKeyManager().aUp){
+			//center of player
+			hb.x = cb.x + cb.width / 2 - hbSize / 2;
+			//direction hitting
+			hb.y = cb.y - hbSize;
+		}else if(handler.getKeyManager().aDown){
+			hb.x = cb.x + cb.width / 2 - hbSize / 2;
+			hb.y = cb.y + cb.height;			
+		}else if(handler.getKeyManager().aLeft){
+			hb.x = cb.x - hbSize;
+			hb.y = cb.y + cb.height / 2 - hbSize / 2;	
+		}else if(handler.getKeyManager().aRight){
+			hb.x = cb.x + cb.width;
+			hb.y = cb.y + cb.height / 2 - hbSize / 2;	
+		}else{
+			return;
+		}
+		
+		for(Entity e : handler.getWorld().getEntityManager().getEntities()){
+			if(e.equals(this))
+				continue;
+			if(e.getCollisionBounds(0, 0).intersects(hb)){
+				//prob change this to a method once more items in game
+				e.hurt(1);
+				return;
+			}
+		}
+	}
+	
+	@Override
+	public void die(){
+		System.out.println("Player Died");
 	}
 	
 	private void input(){
@@ -40,5 +90,7 @@ public class Player extends Creature{
 	@Override
 	public void render(Graphics g) {
 		g.drawImage(Assets.player, (int) (x - handler.getGameCamera().getxOffset()),(int) (y - handler.getGameCamera().getyOffset()), null);
+		//view hitbox
+		g.drawRect(hb.x, hb.y, hbSize, hbSize);
 	}
 }

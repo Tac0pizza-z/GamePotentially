@@ -6,6 +6,7 @@ import java.awt.event.MouseMotionListener;
 
 public class MouseManager implements MouseListener, MouseMotionListener{
 	
+	//make sure to fix the what happens when the mouse exits the screen
 	private static boolean leftPressed;
 	private static boolean rightPressed;
 	private static boolean midPressed;
@@ -14,8 +15,8 @@ public class MouseManager implements MouseListener, MouseMotionListener{
 	public MouseManager(){
 		
 	}
-	//getters
 	
+	//getters
 	public static boolean isLeftPressed(){
 		return leftPressed;
 	}

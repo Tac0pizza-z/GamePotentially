@@ -4,7 +4,7 @@ import java.awt.Graphics;
 
 import entities.EntityManager;
 import entities.creatures.Player;
-import entities.statics.Spikes;
+import entities.statics.Spider;
 import runGame.Game;
 import runGame.Handler;
 import tiles.Tile;
@@ -22,7 +22,7 @@ public class World {
 	public World(Handler handler, String path){
 		this.handler = handler;
 		entityManager = new EntityManager(handler, new Player(handler, 100, 100));
-		entityManager.addEntity(new Spikes(handler, 250, 200));
+		entityManager.addEntity(new Spider(handler, 250, 200));
 		
 		loadWorld(path);
 		
