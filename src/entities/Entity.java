@@ -30,14 +30,12 @@ public abstract class Entity {
 	
 	public abstract void render(Graphics g);
 	
-	//temp die method
 	public abstract void die();
 	
 	public void hurt(int amt){
 		health -= amt;
 		if(health <= 0) {
 			active = false;
-			//temp die stuff
 			die();
 		}
 	}

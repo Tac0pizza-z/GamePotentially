@@ -29,9 +29,10 @@ public class Player extends Creature{
 		input();
 		move();
 		handler.getGameCamera().centerOnEntity(this);
-		//temp attack stuff
+		//Attack
 		checkAttack();
 	}
+	
 	//temp attack stuff
 	private void checkAttack(){
 		Rectangle cb = getCollisionBounds(0, 0);
@@ -91,6 +92,6 @@ public class Player extends Creature{
 	public void render(Graphics g) {
 		g.drawImage(Assets.player, (int) (x - handler.getGameCamera().getxOffset()),(int) (y - handler.getGameCamera().getyOffset()), null);
 		//view hitbox
-		g.drawRect(hb.x, hb.y, hbSize, hbSize);
+		//g.drawRect(hb.x, hb.y, hbSize, hbSize);
 	}
 }
