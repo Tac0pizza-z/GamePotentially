@@ -20,7 +20,7 @@ public class Spider extends StaticEntity{
 	
 	@Override
 	public void tick(){
-
+		System.out.println(this.health);
 	}
 	
 	@Override
