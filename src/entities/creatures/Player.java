@@ -13,7 +13,7 @@ import weapon.melee.Sword;
 public class Player extends Creature{
 	
 	//temp for equipping weapon
-	Object equippedWep = new Sword(handler, 10);
+	Sword equippedWep = new Sword(handler, 10);
 	
 	public Player(Handler handler, float x, float y) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);

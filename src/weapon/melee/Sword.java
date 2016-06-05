@@ -27,4 +27,6 @@ public class Sword extends MeleeWeapons{
 	public void attack() {
 		
 	}
+	
+	
 }
