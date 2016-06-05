@@ -40,23 +40,23 @@ public class Player extends Creature{
 		
 		//check why this doesnt work
 		//test comment
-		hb.width = equippedWep.hbWidth;
-		hb.height = equippedWep.hbHeight;
+		hb.width = equippedWep.getHbWidth();
+		hb.height = equippedWep.getHbHeight();
 		
 		if(handler.getKeyManager().aUp){
 			//center of player
-			hb.x = cb.x + cb.width / 2 - hbSize / 2;
+			hb.x = cb.x + cb.width / 2 - hb.width / 2;
 			//direction hitting
-			hb.y = cb.y - hbSize;
+			hb.y = cb.y - hb.height;
 		}else if(handler.getKeyManager().aDown){
-			hb.x = cb.x + cb.width / 2 - hbSize / 2;
+			hb.x = cb.x + cb.width / 2 - hb.width / 2;
 			hb.y = cb.y + cb.height;			
 		}else if(handler.getKeyManager().aLeft){
-			hb.x = cb.x - hbSize;
-			hb.y = cb.y + cb.height / 2 - hbSize / 2;	
+			hb.x = cb.x - hb.height;
+			hb.y = cb.y + cb.height / 2 - hb.width / 2;	
 		}else if(handler.getKeyManager().aRight){
 			hb.x = cb.x + cb.width;
-			hb.y = cb.y + cb.height / 2 - hbSize / 2;	
+			hb.y = cb.y + cb.height / 2 - hb.height / 2;	
 		}else{
 			return;
 		}
