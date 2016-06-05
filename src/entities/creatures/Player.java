@@ -8,8 +8,12 @@ import entities.Entity;
 import gfx.Assets;
 import runGame.Game;
 import runGame.Handler;
+import weapon.melee.Sword;
 
 public class Player extends Creature{
+	
+	//temp for equipping weapon
+	Object equippedWep = new Sword(handler, 10);
 	
 	//temp for viewing hitboxes
 	Rectangle hb = new Rectangle();
