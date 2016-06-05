@@ -12,6 +12,7 @@ import weapon.melee.Sword;
 
 public class Player extends Creature{
 	
+	Rectangle hb = new Rectangle();
 	//temp for equipping weapon
 	Sword equippedWep = new Sword(handler, 10);
 	
@@ -36,7 +37,7 @@ public class Player extends Creature{
 	//temp attack stuff
 	private void checkAttack(){
 		Rectangle cb = getCollisionBounds(0, 0);
-		Rectangle hb = new Rectangle();
+		
 		
 		//check why this doesnt work
 		//test comment
@@ -50,13 +51,15 @@ public class Player extends Creature{
 			hb.y = cb.y - hb.height;
 		}else if(handler.getKeyManager().aDown){
 			hb.x = cb.x + cb.width / 2 - hb.width / 2;
-			hb.y = cb.y + cb.height;			
+			hb.y = cb.y + cb.height;
 		}else if(handler.getKeyManager().aLeft){
+			//doesnt work
 			hb.x = cb.x - hb.height;
-			hb.y = cb.y + cb.height / 2 - hb.width / 2;	
+			hb.y = cb.y + cb.height / 2 - hb.width / 2;
 		}else if(handler.getKeyManager().aRight){
-			hb.x = cb.x + cb.width;
-			hb.y = cb.y + cb.height / 2 - hb.height / 2;	
+			//doesnt work
+			hb.x = cb.x + cb.height;
+			hb.y = cb.y + cb.height / 2 - hb.height / 2;
 		}else{
 			return;
 		}
@@ -93,6 +96,6 @@ public class Player extends Creature{
 	public void render(Graphics g) {
 		g.drawImage(Assets.player, (int) (x - handler.getGameCamera().getxOffset()),(int) (y - handler.getGameCamera().getyOffset()), null);
 		//view hitbox
-		//g.drawRect(hb.x, hb.y, hbSize, hbSize);
+		//g.drawRect(hb);
 	}
 }
