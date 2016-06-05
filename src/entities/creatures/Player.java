@@ -15,10 +15,6 @@ public class Player extends Creature{
 	//temp for equipping weapon
 	Object equippedWep = new Sword(handler, 10);
 	
-	//temp for viewing hitboxes
-	Rectangle hb = new Rectangle();
-	int hbSize = 20;
-	
 	public Player(Handler handler, float x, float y) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
 	
@@ -40,14 +36,12 @@ public class Player extends Creature{
 	//temp attack stuff
 	private void checkAttack(){
 		Rectangle cb = getCollisionBounds(0, 0);
+		Rectangle hb = new Rectangle();
 		
-		//temp removal for viewing hb
-		//Rectangle hb = new Rectangle();
-		//int hbSize = 20;
-		
-		
-		hb.width = hbSize;
-		hb.height = hbSize;
+		//check why this doesnt work
+		//test comment
+		hb.width = equippedWep.hbWidth;
+		hb.height = equippedWep.hbHeight;
 		
 		if(handler.getKeyManager().aUp){
 			//center of player

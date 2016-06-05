@@ -7,15 +7,17 @@ import runGame.Handler;
 public abstract class Weapons {
 	
 	protected Handler handler;
-	protected float degreeHeld;
 	protected int cooldown, damage, hbWidth, hbHeight;
 	protected boolean onCooldown;
+	private float degreeOfWep;
 	
-	public Weapons(Handler handler, float degreeOfWep, int cooldown, int damage, int hbWidth, int hbHeight, boolean onCooldown){
+	public Weapons(Handler handler, int hbWidth, int hbHeight, int damage, int cooldown, float degreeOfWep, boolean onCooldown){
 		this.handler = handler;
-		this.degreeHeld = degreeHeld;
-		this.cooldown = cooldown;
+		this.hbWidth = hbWidth;
+		this.hbHeight = hbHeight;
 		this.damage = damage;
+		this.cooldown = cooldown;
+		this.degreeOfWep = degreeOfWep;
 		onCooldown = false;
 	}
 	
