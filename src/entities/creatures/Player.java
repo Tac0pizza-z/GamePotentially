@@ -44,13 +44,6 @@ public class Player extends Creature{
 		
 		hb.width = hbSize;
 		hb.height = hbSize;
-		//swing cooldown
-		//code is same as how game ticks in Game.java, be sure to fix later
-		double delta = 0;
-		long now = 0;
-		long lastTime = System.nanoTime();
-		delta += (now - lastTime) / 2;
-		lastTime = now;
 		
 		if(handler.getKeyManager().aUp){
 			//center of player
