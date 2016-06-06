@@ -29,10 +29,11 @@ public abstract class Weapons {
 
 	//get n set
 
+	
 	public int getCooldown() {
 		return cooldown;
 	}
-
+	
 	public void setCooldown(int cooldown) {
 		this.cooldown = cooldown;
 	}

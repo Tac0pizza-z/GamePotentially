@@ -15,6 +15,8 @@ public class Player extends Creature{
 	Rectangle hb = new Rectangle();
 	//temp for equipping weapon
 	Sword equippedWep = new Sword(handler, 10);
+	//last attack
+	private long lastAttack = 0;
 	
 	public Player(Handler handler, float x, float y) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
@@ -31,46 +33,56 @@ public class Player extends Creature{
 		move();
 		handler.getGameCamera().centerOnEntity(this);
 		//Attack
-		checkAttack();
+		if(checkIfAttackAvailable()){
+			checkAttack();
+			System.out.println("Attack available");
+		}else{
+			System.out.println("Attack not available");
+		}
 	}
 	
-	//temp attack stuff
+	private boolean checkIfAttackAvailable(){
+		long now = System.nanoTime();
+		if(now - lastAttack >= equippedWep.getCooldown() * 1000000000 || lastAttack == 0){
+			lastAttack = now;
+			return true;
+		}
+		return false;
+	}
+	
 	private void checkAttack(){
 		Rectangle cb = getCollisionBounds(0, 0);
-		
-		
-		//check why this doesnt work
-		//test comment
+		//set hb
 		hb.width = equippedWep.getHbWidth();
 		hb.height = equippedWep.getHbHeight();
 		
-		if(handler.getKeyManager().aUp){
-			//center of player
-			hb.x = cb.x + cb.width / 2 - hb.width / 2;
-			//direction hitting
-			hb.y = cb.y - hb.height;
-		}else if(handler.getKeyManager().aDown){
-			hb.x = cb.x + cb.width / 2 - hb.width / 2;
-			hb.y = cb.y + cb.height;
-		}else if(handler.getKeyManager().aLeft){
-			//doesnt work
-			hb.x = cb.x - hb.height;
-			hb.y = cb.y + cb.height / 2 - hb.width / 2;
-		}else if(handler.getKeyManager().aRight){
-			//doesnt work
-			hb.x = cb.x + cb.height;
-			hb.y = cb.y + cb.height / 2 - hb.height / 2;
-		}else{
-			return;
-		}
-		
-		for(Entity e : handler.getWorld().getEntityManager().getEntities()){
-			if(e.equals(this))
-				continue;
-			if(e.getCollisionBounds(0, 0).intersects(hb)){
-				//prob change this to a method once more items in game
-				e.hurt(1);
+		if(!equippedWep.isOnCooldown()){
+			if(handler.getKeyManager().aUp){
+				hb.x = cb.x + cb.width / 2 - hb.width / 2;
+				hb.y = cb.y - hb.height;
+			}else if(handler.getKeyManager().aDown){
+				hb.x = cb.x + cb.width / 2 - hb.width / 2;
+				hb.y = cb.y + cb.height;
+			}else if(handler.getKeyManager().aLeft){
+				//doesnt work
+				hb.x = cb.x - hb.height;
+				hb.y = cb.y + cb.height / 2 - hb.width / 2;
+			}else if(handler.getKeyManager().aRight){
+				//doesnt work
+				hb.x = cb.x + cb.height;
+				hb.y = cb.y + cb.height / 2 - hb.height / 2;
+			}else{
 				return;
+			}
+		
+			for(Entity e : handler.getWorld().getEntityManager().getEntities()){
+				if(e.equals(this))
+					continue;
+				if(e.getCollisionBounds(0, 0).intersects(hb)){
+					//prob change this to a method once more items in game
+					e.hurt(equippedWep.getDamage());
+					return;
+				}
 			}
 		}
 	}

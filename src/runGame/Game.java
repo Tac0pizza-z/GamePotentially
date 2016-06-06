@@ -37,10 +37,6 @@ public class Game implements Runnable{
 	//handler
 	private Handler handler;
 	
-	//timing
-	private long now, lastTime;
-	private double delta = 0;
-	
 	public Game(String title, int width, int height){
 		this.width = width;
 		this.height = height;
@@ -97,7 +93,9 @@ public class Game implements Runnable{
 		
 		int fps = 60;
 		double effFps = 1000000000 / fps;
-		lastTime = System.nanoTime();
+		long now;
+		double delta = 0;
+		long lastTime = System.nanoTime();
 		long seconds = 0;
 		int frames = 0;
 		
@@ -161,31 +159,5 @@ public class Game implements Runnable{
 				e.printStackTrace();
 			}
 		}
-	}
-	
-	//getnset
-	//potentially make new file for these, not rlly belong here
-	public long getNow() {
-		return now;
-	}
-
-	public void setNow(long now) {
-		this.now = now;
-	}
-
-	public long getLastTime() {
-		return lastTime;
-	}
-
-	public void setLastTime(long lastTime) {
-		this.lastTime = lastTime;
-	}
-
-	public double getDelta() {
-		return delta;
-	}
-
-	public void setDelta(double delta) {
-		this.delta = delta;
 	}
 }
