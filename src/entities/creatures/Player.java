@@ -44,7 +44,6 @@ public class Player extends Creature{
 	private boolean checkIfAttackAvailable(){
 		long now = System.nanoTime();
 		if(now - lastAttack >= equippedWep.getCooldown() * 1000000000 || lastAttack == 0){
-			lastAttack = now;
 			return true;
 		}
 		return false;
@@ -74,7 +73,7 @@ public class Player extends Creature{
 			}else{
 				return;
 			}
-		
+			lastAttack = System.nanoTime();
 			for(Entity e : handler.getWorld().getEntityManager().getEntities()){
 				if(e.equals(this))
 					continue;
