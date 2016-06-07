@@ -3,7 +3,6 @@ package entities.creatures;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
-
 import entities.Entity;
 import gfx.Assets;
 import runGame.Game;
@@ -12,11 +11,13 @@ import weapon.melee.Sword;
 
 public class Player extends Creature{
 	
-	Rectangle hb = new Rectangle();
+	
 	//temp for equipping weapon
 	Sword equippedWep = new Sword(handler, 10);
 	//last attack
 	private long lastAttack = 0;
+	//temp for viewing rect
+	Rectangle hb = new Rectangle();
 	
 	public Player(Handler handler, float x, float y) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
@@ -33,12 +34,7 @@ public class Player extends Creature{
 		move();
 		handler.getGameCamera().centerOnEntity(this);
 		//Attack
-		if(checkIfAttackAvailable()){
-			checkAttack();
-			System.out.println("Attack available");
-		}else{
-			System.out.println("Attack not available");
-		}
+		checkAttack();
 	}
 	
 	private boolean checkIfAttackAvailable(){
@@ -54,34 +50,31 @@ public class Player extends Creature{
 		//set hb
 		hb.width = equippedWep.getHbWidth();
 		hb.height = equippedWep.getHbHeight();
-		
-		if(!equippedWep.isOnCooldown()){
-			if(handler.getKeyManager().aUp){
-				hb.x = cb.x + cb.width / 2 - hb.width / 2;
-				hb.y = cb.y - hb.height;
-			}else if(handler.getKeyManager().aDown){
-				hb.x = cb.x + cb.width / 2 - hb.width / 2;
-				hb.y = cb.y + cb.height;
-			}else if(handler.getKeyManager().aLeft){
-				//doesnt work
-				hb.x = cb.x - hb.height;
-				hb.y = cb.y + cb.height / 2 - hb.width / 2;
-			}else if(handler.getKeyManager().aRight){
-				//doesnt work
-				hb.x = cb.x + cb.height;
-				hb.y = cb.y + cb.height / 2 - hb.height / 2;
-			}else{
+		if(handler.getKeyManager().aUp && checkIfAttackAvailable()){
+			hb.x = cb.x + cb.width / 2 - hb.width / 2;
+			hb.y = cb.y - hb.height;
+		}else if(handler.getKeyManager().aDown && checkIfAttackAvailable()){
+			hb.x = cb.x + cb.width / 2 - hb.width / 2;
+			hb.y = cb.y + cb.height;
+		}else if(handler.getKeyManager().aLeft && checkIfAttackAvailable()){
+			//doesnt work
+			hb.x = cb.x - hb.width;
+			hb.y = cb.y + cb.height / 2 - hb.height / 2;
+		}else if(handler.getKeyManager().aRight && checkIfAttackAvailable()){
+			//doesnt work
+			hb.x = cb.x + cb.height;
+			hb.y = cb.y + cb.height / 2 - hb.width / 2;
+		}else{
+			return;
+		}
+		lastAttack = System.nanoTime();
+		for(Entity e : handler.getWorld().getEntityManager().getEntities()){
+			if(e.equals(this))
+				continue;
+			if(e.getCollisionBounds(0, 0).intersects(hb)){
+				//prob change this to a method once more items in game
+				e.hurt(equippedWep.getDamage());
 				return;
-			}
-			lastAttack = System.nanoTime();
-			for(Entity e : handler.getWorld().getEntityManager().getEntities()){
-				if(e.equals(this))
-					continue;
-				if(e.getCollisionBounds(0, 0).intersects(hb)){
-					//prob change this to a method once more items in game
-					e.hurt(equippedWep.getDamage());
-					return;
-				}
 			}
 		}
 	}
@@ -107,6 +100,6 @@ public class Player extends Creature{
 	public void render(Graphics g) {
 		g.drawImage(Assets.player, (int) (x - handler.getGameCamera().getxOffset()),(int) (y - handler.getGameCamera().getyOffset()), null);
 		//view hitbox
-		//g.drawRect(hb);
+		g.drawRect(hb.x, hb.y, hb.width, hb.height);
 	}
 }

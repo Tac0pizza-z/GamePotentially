@@ -1,8 +1,13 @@
 package input;
 
+import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+
+import javax.sound.sampled.Line;
+
+import entities.creatures.Player;
 
 public class MouseManager implements MouseListener, MouseMotionListener{
 	
@@ -13,6 +18,14 @@ public class MouseManager implements MouseListener, MouseMotionListener{
 	private int mouseX, mouseY;
 	
 	public MouseManager(){
+		
+	}
+	
+	public int mousePosRelToPlayer(Graphics g, Player player){
+		int playerCenterX = (int) player.getX() - player.getWidth() / 2;
+		int playerCenterY = (int) player.getY() - player.getHeight() / 2;
+		//problems making lines
+		Line pToMouse = new Line();
 		
 	}
 	
