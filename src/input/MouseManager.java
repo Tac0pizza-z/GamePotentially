@@ -1,6 +1,7 @@
 package input;
 
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -21,12 +22,14 @@ public class MouseManager implements MouseListener, MouseMotionListener{
 		
 	}
 	
-	public int mousePosRelToPlayer(Graphics g, Player player){
-		int playerCenterX = (int) player.getX() - player.getWidth() / 2;
-		int playerCenterY = (int) player.getY() - player.getHeight() / 2;
-		//problems making lines
-		Line pToMouse = new Line();
-		
+	public float getAngle(Player player) {
+	    float angle = (float) Math.toDegrees(Math.atan2(player.getY() - mouseY, player.getX() - mouseX));
+
+	    if(angle < 0){
+	        angle += 360;
+	    }
+
+	    return angle;
 	}
 	
 	//getters

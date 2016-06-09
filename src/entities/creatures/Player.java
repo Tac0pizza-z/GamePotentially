@@ -2,16 +2,22 @@ package entities.creatures;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import entities.Entity;
 import gfx.Assets;
+import input.MouseManager;
 import runGame.Game;
 import runGame.Handler;
 import weapon.melee.Sword;
 
 public class Player extends Creature{
 	
-	
+	private Graphics2D g;
+	//player
+	private Player player;
+	//mouse input
+	private MouseManager mouseManager;
 	//temp for equipping weapon
 	Sword equippedWep = new Sword(handler, 10);
 	//last attack
@@ -34,10 +40,10 @@ public class Player extends Creature{
 		move();
 		handler.getGameCamera().centerOnEntity(this);
 		//Attack
-		checkAttack();
+		checkAttack(g);
 	}
 	
-	private boolean checkIfAttackAvailable(){
+	private boolean attackAvailable(){
 		long now = System.nanoTime();
 		if(now - lastAttack >= equippedWep.getCooldown() * 1000000000 || lastAttack == 0){
 			return true;
@@ -45,27 +51,48 @@ public class Player extends Creature{
 		return false;
 	}
 	
-	private void checkAttack(){
+	private void checkAttack(Graphics2D g){
 		Rectangle cb = getCollisionBounds(0, 0);
-		//set hb
 		hb.width = equippedWep.getHbWidth();
 		hb.height = equippedWep.getHbHeight();
+		//problems here
+		hb.x = (int) player.getX();
+		hb.y = (int) player.getY();
+		//old code
+		/**
 		if(handler.getKeyManager().aUp && checkIfAttackAvailable()){
+			//set hb
+			hb.width = equippedWep.getHbWidth();
+			hb.height = equippedWep.getHbHeight();
 			hb.x = cb.x + cb.width / 2 - hb.width / 2;
 			hb.y = cb.y - hb.height;
 		}else if(handler.getKeyManager().aDown && checkIfAttackAvailable()){
+			//set hb
+			hb.width = equippedWep.getHbWidth();
+			hb.height = equippedWep.getHbHeight();
 			hb.x = cb.x + cb.width / 2 - hb.width / 2;
 			hb.y = cb.y + cb.height;
 		}else if(handler.getKeyManager().aLeft && checkIfAttackAvailable()){
+			//set hb
+			hb.height = equippedWep.getHbWidth();
+			hb.width = equippedWep.getHbHeight();
 			//doesnt work
 			hb.x = cb.x - hb.width;
 			hb.y = cb.y + cb.height / 2 - hb.height / 2;
 		}else if(handler.getKeyManager().aRight && checkIfAttackAvailable()){
+			//set hb
+			hb.height = equippedWep.getHbWidth();
+			hb.width = equippedWep.getHbHeight();
 			//doesnt work
 			hb.x = cb.x + cb.height;
-			hb.y = cb.y + cb.height / 2 - hb.width / 2;
+			hb.y = cb.y + cb.height / 2 - hb.height / 2;
 		}else{
 			return;
+		}
+		**/
+		//new code (doesnt work)
+		if(mouseManager.isLeftPressed() && attackAvailable()){
+			g.rotate(mouseManager.getAngle(player));
 		}
 		lastAttack = System.nanoTime();
 		for(Entity e : handler.getWorld().getEntityManager().getEntities()){
