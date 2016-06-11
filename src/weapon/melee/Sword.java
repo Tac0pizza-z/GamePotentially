@@ -10,7 +10,7 @@ import runGame.Handler;
 public class Sword extends MeleeWeapons{
 
 	public Sword(Handler handler, float degreeOfWep) {
-		super(handler, 40, 20, 5, 2, degreeOfWep, false);
+		super(handler, 800, 400, 5, 2, degreeOfWep, false);
 	}
 
 	@Override

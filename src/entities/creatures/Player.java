@@ -4,6 +4,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.Shape;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import entities.Entity;
 import gfx.Assets;
 import input.MouseManager;
@@ -13,7 +16,8 @@ import weapon.melee.Sword;
 
 public class Player extends Creature{
 	
-	private Graphics2D g;
+	private Graphics g;
+	private Graphics2D g2d = (Graphics2D)g;
 	//player
 	private Player player;
 	//mouse input
@@ -22,8 +26,6 @@ public class Player extends Creature{
 	Sword equippedWep = new Sword(handler, 10);
 	//last attack
 	private long lastAttack = 0;
-	//temp for viewing rect
-	Rectangle hb = new Rectangle();
 	
 	public Player(Handler handler, float x, float y) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
@@ -40,7 +42,7 @@ public class Player extends Creature{
 		move();
 		handler.getGameCamera().centerOnEntity(this);
 		//Attack
-		checkAttack(g);
+		checkAttack(g2d);
 	}
 	
 	private boolean attackAvailable(){
@@ -51,13 +53,8 @@ public class Player extends Creature{
 		return false;
 	}
 	
-	private void checkAttack(Graphics2D g){
-		Rectangle cb = getCollisionBounds(0, 0);
-		hb.width = equippedWep.getHbWidth();
-		hb.height = equippedWep.getHbHeight();
-		//problems here
-		hb.x = (int) player.getX();
-		hb.y = (int) player.getY();
+	@SuppressWarnings("static-access")
+	private void checkAttack(Graphics2D g2d){
 		//old code
 		/**
 		if(handler.getKeyManager().aUp && checkIfAttackAvailable()){
@@ -91,14 +88,27 @@ public class Player extends Creature{
 		}
 		**/
 		//new code (doesnt work)
+		Rectangle cb = getCollisionBounds(0, 0);
+		Shape hb = new Rectangle();
 		if(mouseManager.isLeftPressed() && attackAvailable()){
-			g.rotate(mouseManager.getAngle(player));
+			/*
+			AffineTransform hbRotation = new AffineTransform();
+			hbRotation.translate(cb.width / 2, 0 - (cb.height / 2));
+			hbRotation.rotate(mouseManager.getAngle(player));
+			*/
+			//AffineTransformOp op = new AffineTransformOp(hbRotation, AffineTransformOp.TYPE_BILINEAR);
+			AffineTransform hbAlterations = new AffineTransform();
+			hbAlterations.translate(cb.x, cb.y);
+		    hbAlterations.rotate(Math.toRadians(45), cb.getCenterX(), cb.getCenterY());
+		    hb = hbAlterations.createTransformedShape(hb);
+		}else{
+			return;
 		}
 		lastAttack = System.nanoTime();
 		for(Entity e : handler.getWorld().getEntityManager().getEntities()){
 			if(e.equals(this))
 				continue;
-			if(e.getCollisionBounds(0, 0).intersects(hb)){
+			if(e.getCollisionBounds(0, 0).intersection(hb)){ //rotatedHb is a problem
 				//prob change this to a method once more items in game
 				e.hurt(equippedWep.getDamage());
 				return;
@@ -127,6 +137,6 @@ public class Player extends Creature{
 	public void render(Graphics g) {
 		g.drawImage(Assets.player, (int) (x - handler.getGameCamera().getxOffset()),(int) (y - handler.getGameCamera().getyOffset()), null);
 		//view hitbox
-		g.drawRect(hb.x, hb.y, hb.width, hb.height);
+		//g.drawRect(hb.x, hb.y, hb.width, hb.height);
 	}
 }
