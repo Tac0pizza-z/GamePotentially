@@ -40,6 +40,7 @@ public abstract class Entity {
 		}
 	}
 	
+	//make sword swing an entity?
 	public boolean checkEntityCollisions(float xOffset, float yOffset){
 		for(Entity e : handler.getWorld().getEntityManager().getEntities()){
 			if(e.equals(this))

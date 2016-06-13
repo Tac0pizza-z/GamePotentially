@@ -56,27 +56,28 @@ public class Player extends Creature{
 	@SuppressWarnings("static-access")
 	private void checkAttack(Graphics2D g2d){
 		//old code
-		/**
-		if(handler.getKeyManager().aUp && checkIfAttackAvailable()){
+		Rectangle cb = getCollisionBounds(0, 0);
+		Rectangle hb = new Rectangle();
+		if(handler.getKeyManager().aUp && attackAvailable()){
 			//set hb
 			hb.width = equippedWep.getHbWidth();
 			hb.height = equippedWep.getHbHeight();
 			hb.x = cb.x + cb.width / 2 - hb.width / 2;
 			hb.y = cb.y - hb.height;
-		}else if(handler.getKeyManager().aDown && checkIfAttackAvailable()){
+		}else if(handler.getKeyManager().aDown && attackAvailable()){
 			//set hb
 			hb.width = equippedWep.getHbWidth();
 			hb.height = equippedWep.getHbHeight();
 			hb.x = cb.x + cb.width / 2 - hb.width / 2;
 			hb.y = cb.y + cb.height;
-		}else if(handler.getKeyManager().aLeft && checkIfAttackAvailable()){
+		}else if(handler.getKeyManager().aLeft && attackAvailable()){
 			//set hb
 			hb.height = equippedWep.getHbWidth();
 			hb.width = equippedWep.getHbHeight();
 			//doesnt work
 			hb.x = cb.x - hb.width;
 			hb.y = cb.y + cb.height / 2 - hb.height / 2;
-		}else if(handler.getKeyManager().aRight && checkIfAttackAvailable()){
+		}else if(handler.getKeyManager().aRight && attackAvailable()){
 			//set hb
 			hb.height = equippedWep.getHbWidth();
 			hb.width = equippedWep.getHbHeight();
@@ -86,29 +87,11 @@ public class Player extends Creature{
 		}else{
 			return;
 		}
-		**/
-		//new code (doesnt work)
-		Rectangle cb = getCollisionBounds(0, 0);
-		Shape hb = new Rectangle();
-		if(mouseManager.isLeftPressed() && attackAvailable()){
-			/*
-			AffineTransform hbRotation = new AffineTransform();
-			hbRotation.translate(cb.width / 2, 0 - (cb.height / 2));
-			hbRotation.rotate(mouseManager.getAngle(player));
-			*/
-			//AffineTransformOp op = new AffineTransformOp(hbRotation, AffineTransformOp.TYPE_BILINEAR);
-			AffineTransform hbAlterations = new AffineTransform();
-			hbAlterations.translate(cb.x, cb.y);
-		    hbAlterations.rotate(Math.toRadians(45), cb.getCenterX(), cb.getCenterY());
-		    hb = hbAlterations.createTransformedShape(hb);
-		}else{
-			return;
-		}
 		lastAttack = System.nanoTime();
 		for(Entity e : handler.getWorld().getEntityManager().getEntities()){
 			if(e.equals(this))
 				continue;
-			if(e.getCollisionBounds(0, 0).intersection(hb)){ //rotatedHb is a problem
+			if(e.getCollisionBounds(0f, 0f).intersects(hb)){ //rotatedHb is a problem
 				//prob change this to a method once more items in game
 				e.hurt(equippedWep.getDamage());
 				return;
