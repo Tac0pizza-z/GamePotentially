@@ -7,10 +7,10 @@ import entities.Entity;
 import entities.creatures.Player;
 import runGame.Handler;
 
-public class Sword extends MeleeWeapons{
-
-	public Sword(Handler handler, float degreeOfWep) {
-		super(handler, 800, 400, 5, 2, degreeOfWep, false);
+public class Sword extends MeleeWeapon{
+	
+	public Sword(Handler handler) {
+		super(handler, 800, 400, 5, 2);
 	}
 
 	@Override
@@ -22,11 +22,4 @@ public class Sword extends MeleeWeapons{
 	public void render(Graphics g) {
 		
 	}
-
-	@Override
-	public void attack() {
-		
-	}
-	
-	
 }

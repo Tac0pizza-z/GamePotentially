@@ -28,18 +28,6 @@ public class GameState extends State{
 
 	@Override
 	public void render(Graphics g) {
-		//temporary mouse stuff
 		world.render(g);
-		if(MouseManager.isRightPressed()){
-			g.setColor(Color.RED);
-		}else if(MouseManager.isLeftPressed()){
-			g.setColor(Color.BLUE);
-		}else if(MouseManager.isMidPressed()) {
-			g.setColor(Color.BLACK);
-		}else{
-			g.setColor(Color.WHITE);
-		}
-		g.fillRect(handler.getMouseManager().getMouseX(), handler.getMouseManager().getMouseY(), 10, 10);
-		g.fillRect(handler.getMouseManager().getMouseX(), handler.getMouseManager().getMouseY(), 10, 10);
 	}
 }
