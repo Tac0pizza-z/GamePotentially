@@ -5,7 +5,6 @@ import java.awt.Graphics;
 import entities.EntityManager;
 import entities.creatures.Player;
 import entities.statics.Spider;
-import runGame.Game;
 import runGame.Handler;
 import tiles.Tile;
 import utilities.Utilities;

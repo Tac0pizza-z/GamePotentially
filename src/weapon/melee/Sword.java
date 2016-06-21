@@ -1,10 +1,7 @@
 package weapon.melee;
 
 import java.awt.Graphics;
-import java.awt.Rectangle;
 
-import entities.Entity;
-import entities.creatures.Player;
 import runGame.Handler;
 
 public class Sword extends MeleeWeapon{

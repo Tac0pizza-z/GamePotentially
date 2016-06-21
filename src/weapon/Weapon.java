@@ -1,7 +1,6 @@
 package weapon;
 
 import java.awt.Graphics;
-import java.awt.Rectangle;
 
 import runGame.Handler;
 

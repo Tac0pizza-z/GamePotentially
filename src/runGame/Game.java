@@ -59,7 +59,8 @@ public class Game implements Runnable{
 		
 		//handler
 		handler = new Handler(this);
-		//camera start position
+		
+		//camera starting position
 		gameCamera = new GameCamera(handler, 0, 0);
 		
 		//initialize states

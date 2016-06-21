@@ -55,13 +55,13 @@ public class Player extends Creature{
 	private void input(){
 		xMove = 0;
 		yMove = 0;
-		if(handler.getKeyManager().up)
+		if(KeyManager.up)
 			yMove = -spd;
-		if(handler.getKeyManager().down)
+		if(KeyManager.down)
 			yMove = spd;
-		if(handler.getKeyManager().left)
+		if(KeyManager.left)
 			xMove = -spd;
-		if(handler.getKeyManager().right)
+		if(KeyManager.right)
 			xMove = spd;
 	}
 	

@@ -1,12 +1,8 @@
 package states;
 
-import java.awt.Color;
 import java.awt.Graphics;
 
 import entities.creatures.Player;
-import entities.statics.Spider;
-import input.MouseManager;
-import runGame.Game;
 import runGame.Handler;
 import world.World;
 
@@ -29,5 +25,9 @@ public class GameState extends State{
 	@Override
 	public void render(Graphics g) {
 		world.render(g);
+	}
+
+	public Player getPlayer() {
+		return player;
 	}
 }
