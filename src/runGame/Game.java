@@ -13,13 +13,16 @@ import states.State;
 
 public class Game implements Runnable{
 	
+	//Game Window
 	private Display display;
 	private int width, height;
 	public String title;
 	
+	//run Game
 	private boolean running = false;
 	private Thread thread;
 	
+	//Graphics
 	private BufferStrategy bs;
 	private Graphics g;
 	

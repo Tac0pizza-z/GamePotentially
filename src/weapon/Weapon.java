@@ -1,6 +1,7 @@
 package weapon;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 import runGame.Handler;
 
@@ -25,7 +26,6 @@ public abstract class Weapon {
 	
 	public abstract void attack();
 
-	
 	//get n set
 	public int getCooldown() {
 		return cooldown;

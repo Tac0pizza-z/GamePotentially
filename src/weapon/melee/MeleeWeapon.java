@@ -31,33 +31,31 @@ public class MeleeWeapon extends Weapon{
 
 	public void attack() {
 		//reg attack method, changed if weapon has unique properties
-		Rectangle cb = player.getCollisionBounds(0, 0);
 		Rectangle hb = new Rectangle();
-		handler.getKeyManager();
 		if(KeyManager.aUp){
 			//set hb
 			hb.width = player.getEquippedWep().getHbWidth();
 			hb.height = player.getEquippedWep().getHbHeight();
-			hb.x = cb.x + cb.width / 2 - hb.width / 2;
-			hb.y = cb.y - hb.height;
+			hb.x = (int) (player.getX() + player.getWidth() / 2 - hb.width / 2);
+			hb.y = (int) (player.getY() - hb.height);
 		}else if(KeyManager.aDown){
 			//set hb
 			hb.width = player.getEquippedWep().getHbWidth();
 			hb.height = player.getEquippedWep().getHbHeight();
-			hb.x = cb.x + cb.width / 2 - hb.width / 2;
-			hb.y = cb.y + cb.height;
+			hb.x = (int) (player.getX() + player.getWidth() / 2 - hb.width / 2);
+			hb.y = (int) (player.getY() + player.getHeight());
 		}else if(KeyManager.aLeft){
 			//set hb
 			hb.height = player.getEquippedWep().getHbWidth();
 			hb.width = player.getEquippedWep().getHbHeight();
-			hb.x = cb.x - hb.width;
-			hb.y = cb.y + cb.height / 2 - hb.height / 2;
+			hb.x = (int) (player.getX() - hb.width);
+			hb.y = (int) (player.getY() + player.getHeight() / 2 - hb.height / 2);
 		}else if(KeyManager.aRight){
 			//set hb
 			hb.height = player.getEquippedWep().getHbWidth();
 			hb.width = player.getEquippedWep().getHbHeight();
-			hb.x = cb.x + cb.height;
-			hb.y = cb.y + cb.height / 2 - hb.height / 2;
+			hb.x = (int) (player.getX() + player.getHeight());
+			hb.y = (int) (player.getY() + player.getHeight() / 2 - hb.height / 2);
 		}else{
 			return;
 		}
