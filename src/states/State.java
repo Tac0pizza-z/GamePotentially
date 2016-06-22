@@ -1,7 +1,6 @@
 package states;
 
 import java.awt.Graphics;
-import runGame.Game;
 import runGame.Handler;
 
 public abstract class State {

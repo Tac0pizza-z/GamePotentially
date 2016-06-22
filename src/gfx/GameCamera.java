@@ -1,7 +1,6 @@
 package gfx;
 
 import entities.Entity;
-import runGame.Game;
 import runGame.Handler;
 import tiles.Tile;
 

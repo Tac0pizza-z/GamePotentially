@@ -1,12 +1,8 @@
 package input;
 
-import java.awt.Graphics;
-import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-
-import javax.sound.sampled.Line;
 
 import entities.creatures.Player;
 

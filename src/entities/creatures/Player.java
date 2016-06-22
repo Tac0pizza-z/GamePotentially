@@ -65,13 +65,13 @@ public class Player extends Creature{
 			xMove = spd;
 	}
 	
+	public float getPlayerX() {
+		return this.x;
+	}
+	
 	@Override
 	public void render(Graphics g) {
 		g.drawImage(Assets.player, (int) (x - handler.getGameCamera().getxOffset()),(int) (y - handler.getGameCamera().getyOffset()), null);
-	}
-
-	public Weapon getEquippedWep() {
-		return equippedWep;
 	}
 
 	public void setLastAttack(long newLastAttack) {
