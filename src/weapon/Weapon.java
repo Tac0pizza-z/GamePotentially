@@ -1,6 +1,7 @@
 package weapon;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 import runGame.Handler;
 
@@ -23,7 +24,7 @@ public abstract class Weapon {
 	
 	public abstract void render(Graphics g);
 	
-	public abstract void attack();
+	public abstract void attack(Rectangle collBox);
 
 	//get n set
 	public int getCooldown() {

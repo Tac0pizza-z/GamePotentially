@@ -1,6 +1,9 @@
 package entities.creatures;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
+
+import entities.Entity;
 import gfx.Assets;
 import input.KeyManager;
 import runGame.Handler;
@@ -12,15 +15,14 @@ public class Player extends Creature{
 	//temp for equipping weapon
 	private Weapon equippedWep = new Sword(handler);
 	private static long lastAttack = 0;
-	private static int playerBoundX = 0, playerBoundY = 0;
 	
 	public Player(Handler handler, float x, float y) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
 	
 		//player hb stuff, poorly optimized
 		//try making these static to fix the whole sword thing
-		bounds.x = playerBoundX;
-		bounds.y = playerBoundY;
+		bounds.x = 0;
+		bounds.y = 0;
 		bounds.width = DEFAULT_CREATURE_WIDTH - 1;
 		bounds.height = DEFAULT_CREATURE_HEIGHT - 1;
 	}
@@ -43,8 +45,10 @@ public class Player extends Creature{
 	}
 	
 	private void checkAttack(){
-		if((KeyManager.aUp || KeyManager.aDown || KeyManager.aLeft || KeyManager.aRight) && attackAvailable())
-			equippedWep.attack();
+		if((KeyManager.aUp || KeyManager.aDown || KeyManager.aLeft || KeyManager.aRight) && attackAvailable()){
+			Rectangle collBounds = getCollisionBounds(0, 0);
+			equippedWep.attack(collBounds);
+		}
 	}
 	
 	@Override
@@ -74,7 +78,7 @@ public class Player extends Creature{
 		g.drawImage(Assets.player, (int) (x - handler.getGameCamera().getxOffset()),(int) (y - handler.getGameCamera().getyOffset()), null);
 	}
 
-	public void setLastAttack(long newLastAttack) {
+	public static void setLastAttack(long newLastAttack) {
 		lastAttack = newLastAttack;
 	}	
 }
