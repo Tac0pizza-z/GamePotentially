@@ -29,8 +29,11 @@ public class Player extends Creature{
 	
 	@Override
 	public void tick() {
+		//check for movement input
 		input();
+		//move if inputted
 		move();
+		//center on player
 		handler.getGameCamera().centerOnEntity(this);
 		//Attack
 		checkAttack();
@@ -80,5 +83,9 @@ public class Player extends Creature{
 
 	public static void setLastAttack(long newLastAttack) {
 		lastAttack = newLastAttack;
-	}	
+	}
+	
+	public static Handler getPlayerHandler() {
+		return handler;
+	}
 }

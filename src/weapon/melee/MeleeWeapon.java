@@ -4,7 +4,6 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 
 import entities.Entity;
-import entities.EntityManager;
 import entities.creatures.Player;
 import input.KeyManager;
 import runGame.Handler;
@@ -31,9 +30,6 @@ public class MeleeWeapon extends Weapon{
 
 	public void attack(Rectangle collBox) {
 		//reg attack method, changed if weapon has unique properties
-		//try making player.x static somehow, maybe need to make a seperate class for the player bc lots of probs with it being an entity
-		//but that would ruin a lot of the player stuff so idk
-		//reminder to self, the player exists in the entity manager
 		Rectangle hb = new Rectangle();
 		Rectangle cb = collBox;
 		if(KeyManager.aUp){
@@ -64,9 +60,9 @@ public class MeleeWeapon extends Weapon{
 			return;
 		}
 		Player.setLastAttack(System.nanoTime());
-		//doesnt work
-		for(Entity e : handler.getWorld().getEntityManager().getEntities()){
-			if(e.equals(this))
+		//get handler from player.java
+		for(Entity e : Player.getPlayerHandler().getWorld().getEntityManager().getEntities()){
+			if(e instanceof Player)
 				continue;
 			if(e.getCollisionBounds(0f, 0f).intersects(hb)){
 				//prob change once more items in game

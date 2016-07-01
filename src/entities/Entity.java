@@ -9,14 +9,15 @@ import runGame.Handler;
 public abstract class Entity {
 
 	public static final int DEFAULT_HEALTH = 10;
-	protected Handler handler;
+	//REMINDER: Handler is static for all entities, this may cause problems later
+	protected static Handler handler;
 	protected float x, y;
 	protected int width, height, health;
 	protected boolean active = true;
 	protected Rectangle bounds;
 	
 	public Entity(Handler handler, float x, float y, int width, int height){
-		this.handler = handler;
+		Entity.handler = handler;
 		this.x = x;
 		this.y = y;
 		this.width = width;
