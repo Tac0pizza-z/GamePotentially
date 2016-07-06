@@ -94,7 +94,7 @@ public abstract class Creature extends Entity{
 		this.yMove = yMove;
 	}
 
-	public int getHealth() {
+	public double getHealth() {
 		return health;
 	}
 

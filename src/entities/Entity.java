@@ -12,7 +12,8 @@ public abstract class Entity {
 	//REMINDER: Handler is static for all entities, this may cause problems later
 	protected static Handler handler;
 	protected float x, y;
-	protected int width, height, health;
+	protected int width, height;
+	protected double health;
 	protected boolean active = true;
 	protected Rectangle bounds;
 	
@@ -22,6 +23,7 @@ public abstract class Entity {
 		this.y = y;
 		this.width = width;
 		this.height = height;
+		//make sure to change this so u can actually set health for enemies u goof
 		health = DEFAULT_HEALTH;
 		
 		bounds = new Rectangle(0, 0, width, height);
@@ -33,15 +35,14 @@ public abstract class Entity {
 	
 	public abstract void die();
 	
-	public void hurt(int amt){
-		health -= amt;
+	public void hurt(double d){
+		health -= d;
 		if(health <= 0 && active == true) {
 			active = false;
 			die();
 		}
 	}
-	
-	//make sword swing an entity?
+
 	public boolean checkEntityCollisions(float xOffset, float yOffset){
 		for(Entity e : handler.getWorld().getEntityManager().getEntities()){
 			if(e.equals(this))
@@ -57,7 +58,7 @@ public abstract class Entity {
 	}
 	
 	//getters, setters
-	public int getHealth() {
+	public double getHealth() {
 		return health;
 	}
 

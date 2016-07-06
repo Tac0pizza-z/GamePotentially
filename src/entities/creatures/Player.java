@@ -8,12 +8,15 @@ import gfx.Assets;
 import input.KeyManager;
 import runGame.Handler;
 import weapon.Weapon;
+import weapon.melee.FoamSword;
 import weapon.melee.Sword;
 
 public class Player extends Creature{
 	
 	//temp for equipping weapon
 	private Weapon equippedWep = new Sword(handler);
+	private Weapon reserveWepOne = new FoamSword(handler);
+	private Weapon lastWepUsed;
 	private static long lastAttack = 0;
 	
 	public Player(Handler handler, float x, float y) {
@@ -37,14 +40,8 @@ public class Player extends Creature{
 		handler.getGameCamera().centerOnEntity(this);
 		//Attack
 		checkAttack();
-	}
-	
-	private boolean attackAvailable(){
-		long now = System.nanoTime();
-		if(now - lastAttack >= equippedWep.getCooldown() * 1000000000 || lastAttack == 0){
-			return true;
-		}
-		return false;
+		//Wepon switch
+		checkWepSwitch();
 	}
 	
 	private void checkAttack(){
@@ -52,6 +49,39 @@ public class Player extends Creature{
 			Rectangle collBounds = getCollisionBounds(0, 0);
 			equippedWep.attack(collBounds);
 		}
+	}
+	
+	private boolean attackAvailable(){
+		long now = System.nanoTime();
+		//potentially suboptimal
+		if(lastAttack == 0 || now - lastAttack >= lastWepUsed.getCooldown() * 1000000000){
+			lastWepUsed = equippedWep;
+			return true;
+		}
+		return false;
+	}
+	
+	private void checkWepSwitch(){
+		if(KeyManager.switchWep){
+			//Make sure to switch nulls to reserve weps 2 and 3
+			//probs dont need this to take any arguments
+			WepSwitch(equippedWep, reserveWepOne, null, null);
+		}
+	}
+	
+	private void WepSwitch(Weapon equipWep, Weapon resWepOne, Weapon resWepTwo, Weapon resWepThree){
+		//probs unneccessary
+		//probs doing this in a rlly suboptimal way
+		if(resWepOne == null){
+			return;
+		}else if(resWepTwo == null){
+			Weapon switchingWepOne = equippedWep;
+			Weapon switchingWepTwo = reserveWepOne;
+			equippedWep = switchingWepTwo;
+			reserveWepOne = switchingWepOne;
+			return;
+		}
+		return;
 	}
 	
 	@Override

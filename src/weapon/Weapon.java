@@ -8,10 +8,11 @@ import runGame.Handler;
 public abstract class Weapon {
 	
 	protected Handler handler;
-	protected int cooldown, damage, hbWidth, hbHeight;
+	protected int hbWidth, hbHeight;
+	protected double cooldown, damage;
 	protected boolean ranged;
 
-	public Weapon(Handler handler, int hbWidth, int hbHeight, int damage, int cooldown, boolean ranged) {
+	public Weapon(Handler handler, int hbWidth, int hbHeight, double damage, double cooldown, boolean ranged) {
 		this.handler = handler;
 		this.hbWidth = hbWidth;
 		this.hbHeight = hbHeight;
@@ -27,7 +28,7 @@ public abstract class Weapon {
 	public abstract void attack(Rectangle collBox);
 
 	//get n set
-	public int getCooldown() {
+	public double getCooldown() {
 		return cooldown;
 	}
 	
@@ -35,7 +36,7 @@ public abstract class Weapon {
 		this.cooldown = cooldown;
 	}
 
-	public int getDamage() {
+	public double getDamage() {
 		return damage;
 	}
 

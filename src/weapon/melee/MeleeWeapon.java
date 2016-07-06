@@ -12,9 +12,10 @@ import weapon.Weapon;
 public class MeleeWeapon extends Weapon{
 
 	protected Handler handler;
-	protected int hbWidth, hbHeight, damage, cooldown;
+	protected int hbWidth, hbHeight;
+	protected double damage, cooldown;
 	
-	public MeleeWeapon(Handler handler, int hbWidth, int hbHeight, int damage, int cooldown) {
+	public MeleeWeapon(Handler handler, int hbWidth, int hbHeight, double damage, double cooldown) {
 		super(handler, hbWidth, hbHeight, damage, cooldown, false);
 	}
 

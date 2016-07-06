@@ -4,10 +4,10 @@ import java.awt.Graphics;
 
 import runGame.Handler;
 
-public class Sword extends MeleeWeapon{
+public class FoamSword extends MeleeWeapon{
 	
-	public Sword(Handler handler) {
-		super(handler, 80, 40, 5.5, 2);
+	public FoamSword(Handler handler) {
+		super(handler, 80, 40, 1, 0.1);
 	}
 
 	@Override
