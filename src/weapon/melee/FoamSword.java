@@ -7,7 +7,7 @@ import runGame.Handler;
 public class FoamSword extends MeleeWeapon{
 	
 	public FoamSword(Handler handler) {
-		super(handler, 80, 40, 1, 0.1);
+		super(handler, 80, 40, 1.0, 1.0);
 	}
 
 	@Override

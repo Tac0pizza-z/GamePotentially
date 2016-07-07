@@ -16,7 +16,10 @@ public class Player extends Creature{
 	//temp for equipping weapon
 	private Weapon equippedWep = new Sword(handler);
 	private Weapon reserveWepOne = new FoamSword(handler);
+	private Weapon reserveWepTwo = null;
+	private Weapon reserveWepThree = null;
 	private Weapon lastWepUsed;
+	private long lastWepSwitch = 0;
 	private static long lastAttack = 0;
 	
 	public Player(Handler handler, float x, float y) {
@@ -62,19 +65,21 @@ public class Player extends Creature{
 	}
 	
 	private void checkWepSwitch(){
-		if(KeyManager.switchWep){
-			//Make sure to switch nulls to reserve weps 2 and 3
-			//probs dont need this to take any arguments
-			WepSwitch(equippedWep, reserveWepOne, null, null);
+		long now = System.nanoTime();
+		if(KeyManager.switchWep && (now - lastWepSwitch >= 500000000 || lastWepSwitch == 0)){
+			lastWepSwitch = System.nanoTime();
+			WepSwitch();
 		}
 	}
 	
-	private void WepSwitch(Weapon equipWep, Weapon resWepOne, Weapon resWepTwo, Weapon resWepThree){
+	private void WepSwitch(){
 		//probs unneccessary
 		//probs doing this in a rlly suboptimal way
-		if(resWepOne == null){
+		//checks how many weapons u have every single time
+		//player will only be gaining weapons from the shop, maybe use that
+		if(reserveWepOne == null){
 			return;
-		}else if(resWepTwo == null){
+		}else if(reserveWepTwo == null){
 			Weapon switchingWepOne = equippedWep;
 			Weapon switchingWepTwo = reserveWepOne;
 			equippedWep = switchingWepTwo;
